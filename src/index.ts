@@ -8,7 +8,7 @@ const config: Phaser.Types.Core.GameConfig = {
   physics: {
     default: 'arcade',
     arcade: {
-      gravity: { y: 200 }
+      gravity: { y: 200 , x: 0}
     }
   },
   scene: {
@@ -20,6 +20,7 @@ const config: Phaser.Types.Core.GameConfig = {
 new Phaser.Game(config);
 
 function preload () {
+  console.log('Loading image from:', this.load.path, 'sky.png');
   this.load.image('sky', 'assets/sky.png');
 }
 

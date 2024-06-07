@@ -37,9 +37,21 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
   },
   devServer: {
-    static: path.resolve(__dirname, 'build'),
+    static: [
+      {
+        directory: path.join(__dirname, 'build'), // Directori on estan els fitxers compilats
+        publicPath: '/'
+      },
+      {
+        directory: path.join(__dirname, 'assets'), // Directori on estan els assets
+        publicPath: '/assets'
+      }
+    ],
     compress: true,
     port: 8080,
+    historyApiFallback: true,
+    hot: true,
+    open: true
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -52,8 +64,9 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'assets/**/*'),
-          to: path.resolve(__dirname, 'build')
+          from: path.resolve(__dirname, 'assets', '**', '*'),
+          to: path.resolve(__dirname, 'build', 'assets'), // Assegura que això reflecteix el teu desig
+          noErrorOnMissing: true
         }
       ]
     })
